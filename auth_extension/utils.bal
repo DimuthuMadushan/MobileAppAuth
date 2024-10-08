@@ -2,8 +2,17 @@ import ballerina/http;
 import ballerina/log;
 
 configurable string mobileAppUrl = ?;
+configurable string tokenUrl = ?;
+configurable string clientId = ?;
+configurable string clientSecret = ?;
 
-final http:Client mobileApp = check new (mobileAppUrl);
+final http:Client mobileApp = check new (mobileAppUrl,
+    auth = {
+        tokenUrl: tokenUrl,
+        clientId: clientId,
+        clientSecret: clientSecret
+    }
+);
 
 isolated function getValidUser(TwoFaOtpPayload payload) returns SuccessResponseOk|ErrorResponseBadRequest|ErrorResponseInternalServerError {
     do {
