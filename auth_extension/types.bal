@@ -55,7 +55,7 @@ public type RequestParams record {
 
 public type AccessTokenClaims record {
     string name?;
-    string|int|string[] value?;
+    string|int|string[]|boolean value?;
 };
 
 # Defines the replace operation.

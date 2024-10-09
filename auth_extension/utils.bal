@@ -22,15 +22,17 @@ isolated function getValidUser(TwoFaOtpPayload payload) returns SuccessResponseO
             deviceId = payload.deviceId.toString(),
             twoFaType = payload.twoFaType.toString()
         );
+        log:printInfo("User ID: " + response.toJsonString());
         return <SuccessResponseOk>{body: {actionStatus: "SUCCESS", "userId": response.userId}};
     } on fail error err {
-        log:printError("Error: ", err);
+        log:printError("Error in getValidUser: ", err);
         return <ErrorResponseInternalServerError>{body: {actionStatus: "ERROR", 'error: err.message()}};
     }
 }
 
 isolated function handleTwoFaOtp(Request request) returns SuccessResponseOk|ErrorResponseBadRequest|ErrorResponseInternalServerError {
     do {
+        log:printInfo("Handling two factor OTP request");
         RequestParams[] params = check request.additionalParams.ensureType();
         TwoFaOtpPayload twoFaOtpPayload = {
             twoFa: "",
@@ -69,8 +71,10 @@ isolated function handleTwoFaOtp(Request request) returns SuccessResponseOk|Erro
                 return <ErrorResponseBadRequest>{body: {errorDescription: "Two Fa Type is required"}};
             }
         }
+        log:printInfo("TwoFaOtpPayload: " + twoFaOtpPayload.toJsonString());
         return getValidUser(twoFaOtpPayload);
     } on fail error err {
+        log:printError("Error in handleTwoFaOtp: ", err);
         return <ErrorResponseBadRequest>{body: {errorDescription: err.message()}};
     }
 }
