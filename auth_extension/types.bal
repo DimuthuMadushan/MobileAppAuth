@@ -39,7 +39,7 @@ public type Request record {
     # The scopes requested by the client, which define the permissions associated with the access token. Scopes determine what resources the access token will grant access to.
     string[] scopes?;
     # Any additional HTTP headers included in the access token request. These may contain custom information or metadata that the client has sent. All headers in request are not incorporated specially sensitive headers like ‘Authorization’, ‘Cookie’, etc.
-    RequestHeaders[] additionalHeaders?;
+    RequestHeaders additionalHeaders?;
     RequestParams[] additionalParams?;
 };
 
@@ -55,7 +55,7 @@ public type RequestParams record {
 
 public type AccessTokenClaims record {
     string name?;
-    string value?;
+    string|int|string[] value?;
 };
 
 # Defines the replace operation.
