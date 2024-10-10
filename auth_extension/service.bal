@@ -8,24 +8,21 @@ isolated service / on customAccessTokenEp {
         do {
             log:printInfo("Payload: " + jsonPayload.toJsonString());
             RequestBody payload = check jsonPayload.fromJsonWithType();
-            if payload.actionType == "PRE_ISSUE_ACCESS_TOKEN" {
-                string grantType = payload.event?.request?.grantType.toString();
-                if grantType == "twofaotp" {
-                    log:printInfo("Grant type twofaotp is supported");
-                    Request request = check payload.event?.request.ensureType();
-                    log:printInfo("Request: " + request.toJsonString());
-                    return handleTwoFaOtp(request);
-                } else if grantType == "alwaystwofagrantotp" {
-                    log:printInfo("Grant type alwaystwofagrantotp is not supported");
-                    return <ErrorResponseBadRequest>{body: {errorDescription: "Grant type alwaystwofagrantotp is not supported"}};
-                } else if grantType == "softtokenotp" {
-                    log:printInfo("Grant type softtokenotp is not supported");
-                    return <ErrorResponseBadRequest>{body: {errorDescription: "Grant type softtokenotp is not supported"}};
+            if payload.actionType == PRE_ISSUE_ACCESS_TOKEN {
+                RequestParams[]? requestParams = payload.event?.request?.additionalParams;
+                if requestParams is () {
+                    log:printInfo("Token grant type is not provided");
+                    return <ErrorResponseBadRequest>{body: {errorDescription: "Token grant type is not provided"}};
                 }
-                log:printInfo("Invalid grant type");
-                return <ErrorResponseBadRequest>{body: {errorDescription: "Invalid grant type"}};
+                GrantType extractGrantTypeResult = check extractGrantType(requestParams);
+                if extractGrantTypeResult is TwoFaOtpGrant {
+                    return handleTwoFaOtpGrant(extractGrantTypeResult);
+                } else if extractGrantTypeResult is SoftTokenOtpGrant {
+                    return handleSoftTokenOtpGrant(extractGrantTypeResult);
+                }
+                return handleAlwaysTwoFaOtpGrant(<AlwaysTwoFaOtpGrant>extractGrantTypeResult);
             }
-            log:printInfo("Action type is not PRE_ISSUE_ACCESS_TOKEN");
+            log:printInfo(string `Invalid action type ${payload.actionType.toJsonString()} provided`);
             return <ErrorResponseBadRequest>{body: {errorDescription: "Invalid action type"}};
         } on fail error err {
             log:printError("Error: ", err);

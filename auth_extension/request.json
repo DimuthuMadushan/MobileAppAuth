@@ -1,85 +1,179 @@
 {
-    "requestId": "Ec1wMjmiG8",
-    "actionType": "PRE_ISSUE_ACCESS_TOKEN",
-    "event": {
-      "request": {
-        "grantType": "authorization_code",
-        "clientId": "1u31N7of6gCNR9FqkG1neSlsF_Qa",
-        "scopes": [
-          "read",
-          "write"
-        ],
-        "additionalHeaders": [
-          {
-            "name": "Host",
-            "values": [
-              "example.com"
-            ]
-          }
-        ],
-        "additionalParams": [
-          {
-            "name": "device",
-            "values": [
-              "003ef4a768182ba1ece32cb"
-            ]
-          }
-        ]
-      },
-      "tenant": {
-        "id": 2,
-        "name": "bar.com"
-      },
-      "user": {
-        "id": "e204849c-4ec2-41f1-8ff7-ec1ebff02821"
-      },
-      "organization": {
-        "id": "5c7930f2-c97d-4b38-89a6-7be5fb138a35",
-        "name": "foo.com"
-      },
-      "userStore": {
-        "id": "UFJJTUFSWQ==",
-        "name": "PRIMARY"
-      },
-      "accessToken": {
-        "claims": [
-          {
-            "name": "sub",
-            "value": "e204849c-4ec2-41f1-8ff7-ec1ebff02821"
-          },
-          {
-            "name": "iss",
-            "value": "https://localhost:9443/t/foo.com/oauth2/"
-          },
-          {
-            "name": "client_id",
-            "value": "1u31N7of6gCNR9FqkG1neSlsF_Qa"
-          },
-          {
-            "name": "aut",
-            "value": "APPLICATION_USER"
-          },
-          {
-            "name": "expires_in",
-            "value": 3600
-          },
-          {
-            "name": "subject_type",
-            "value": "public"
-          }
-        ],
-        "scopes": [
-          "read"
-        ]
-      }
+  "requestId": "Ec1wMjmiG8",
+  "actionType": "PRE_ISSUE_ACCESS_TOKEN",
+  "event": {
+    "request": {
+      "grantType": "authorization_code",
+      "clientId": "1u31N7of6gCNR9FqkG1neSlsF_Qa",
+      "scopes": [
+        "read",
+        "write"
+      ],
+      "additionalHeaders": [
+        {
+          "name": "Host",
+          "values": [
+            "example.com"
+          ]
+        }
+      ],
+      "additionalParams": [
+        {
+          "name": "device",
+          "values": [
+            "003ef4a768182ba1ece32cb"
+          ]
+        }
+      ]
     },
-    "allowedOperations": [
-      {
-        "op": "add",
-        "paths": [
-          "string",
-          "/accessToken/scopes"
+    "tenant": {
+      "id": 2,
+      "name": "bar.com"
+    },
+    "user": {
+      "id": "e204849c-4ec2-41f1-8ff7-ec1ebff02821"
+    },
+    "organization": {
+      "id": "5c7930f2-c97d-4b38-89a6-7be5fb138a35",
+      "name": "foo.com"
+    },
+    "userStore": {
+      "id": "UFJJTUFSWQ==",
+      "name": "PRIMARY"
+    },
+    "accessToken": {
+      "claims": [
+        {
+          "name": "sub",
+          "value": "e204849c-4ec2-41f1-8ff7-ec1ebff02821"
+        },
+        {
+          "name": "iss",
+          "value": "https://localhost:9443/t/foo.com/oauth2/"
+        },
+        {
+          "name": "client_id",
+          "value": "1u31N7of6gCNR9FqkG1neSlsF_Qa"
+        },
+        {
+          "name": "aut",
+          "value": "APPLICATION_USER"
+        },
+        {
+          "name": "expires_in",
+          "value": 3600
+        },
+        {
+          "name": "subject_type",
+          "value": "public"
+        }
+      ],
+      "scopes": [
+        "read"
+      ]
+    }
+  },
+  "allowedOperations": [
+    {
+      "op": "add",
+      "paths": [
+        "string",
+        "/accessToken/scopes"
+      ]
+    }
+  ]
+}
+
+{
+  "actionType": "PRE_ISSUE_ACCESS_TOKEN",
+  "event": {
+    "request": {
+      "additionalHeaders": {
+        "x-request-id": [
+          "864c50b41c83e50e914035b710b8e32e"
+        ],
+        "postman-token": [
+          "e451e9bc-6247-43c4-aab8-242ef2f9b461"
         ]
-      }
-    ]
-  }
+      },
+      "additionalParams": [{
+        "authType": [
+          "twofaotp"
+        ]
+      }],
+      "clientId": "YT0gTQlZ2lP3A1P0poAxZtkmvgAa",
+      "grantType": "client_credentials",
+      "scopes": [
+        "profile"
+      ]
+    },
+    "tenant": {
+      "id": "39845",
+      "name": "dimuthu"
+    },
+    "accessToken": {
+      "tokenType": "JWT",
+      "scopes": [
+        "profile"
+      ],
+      "claims": [
+        {
+          "name": "iss",
+          "value": "https://api.asgardeo.io/t/dimuthu/oauth2/token"
+        },
+        {
+          "name": "client_id",
+          "value": "YT0gTQlZ2lP3A1P0poAxZtkmvgAa"
+        },
+        {
+          "name": "aut",
+          "value": "APPLICATION"
+        },
+        {
+          "name": "expires_in",
+          "value": 900
+        },
+        {
+          "name": "aud",
+          "value": [
+            "YT0gTQlZ2lP3A1P0poAxZtkmvgAa",
+            "choreo:deployment:production"
+          ]
+        },
+        {
+          "name": "subject_type",
+          "value": "public"
+        },
+        {
+          "name": "sub",
+          "value": "c6bf611e-2057-42c7-8f93-72a83ea08596"
+        }
+      ]
+    }
+  },
+  "allowedOperations": [
+    {
+      "op": "add",
+      "paths": [
+        "/accessToken/claims/",
+        "/accessToken/scopes/",
+        "/accessToken/claims/aud/"
+      ]
+    },
+    {
+      "op": "remove",
+      "paths": [
+        "/accessToken/scopes/",
+        "/accessToken/claims/aud/"
+      ]
+    },
+    {
+      "op": "replace",
+      "paths": [
+        "/accessToken/scopes/",
+        "/accessToken/claims/aud/",
+        "/accessToken/claims/expires_in"
+      ]
+    }
+  ]
+}

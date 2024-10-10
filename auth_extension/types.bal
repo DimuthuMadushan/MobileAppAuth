@@ -4,7 +4,7 @@ import ballerina/http;
 
 # Defines the success response.
 public type SuccessResponse record {
-    "SUCCESS" actionStatus?;
+    SUCCESS actionStatus?;
     Operations[] operations?;
 };
 
@@ -39,7 +39,7 @@ public type Request record {
     # The scopes requested by the client, which define the permissions associated with the access token. Scopes determine what resources the access token will grant access to.
     string[] scopes?;
     # Any additional HTTP headers included in the access token request. These may contain custom information or metadata that the client has sent. All headers in request are not incorporated specially sensitive headers like ‘Authorization’, ‘Cookie’, etc.
-    RequestHeaders additionalHeaders?;
+    RequestHeaders[] additionalHeaders?;
     RequestParams[] additionalParams?;
 };
 
@@ -66,7 +66,7 @@ public type replaceOperation AllowedOperation;
 # If the defined error response is not received, or if the external service fails to respond, this is identified as an error in executing the action. In such cases, the flow will proceed as if the action was not applied, ensuring that the process continues without disruption.
 public type ErrorResponse record {
     # Indicates the outcome of the request. For an error operation, this should be set to ERROR.
-    "ERROR" actionStatus?;
+    ERROR actionStatus?;
     # The error code, as specified in OAuth 2.0 error response definitions.
     string 'error?;
     # A detailed description of the error.
@@ -168,4 +168,62 @@ type TwoFaOtpPayload record {|
     string authSessionId;
     string deviceId;
     string twoFaType;
+|};
+
+enum actionType {
+    PRE_ISSUE_ACCESS_TOKEN
+};
+
+type GrantType TwoFaOtpGrant|SoftTokenOtpGrant|AlwaysTwoFaOtpGrant;
+
+type TwoFaOtpGrant record {
+    string twoFa;
+    string authSessionId;
+    string deviceId;
+    string twoFaType;
+};
+
+type SoftTokenOtpGrant record {
+    string authSessionId;
+    string tokenSerialNo;
+    string tokenResponse;
+};
+
+type AlwaysTwoFaOtpGrant record {
+    string twoFa;
+    string authSessionId;
+    string deviceId;
+    string twoFaType;
+    string tokenSerialNo;
+    string tokenResponse;
+    string apiVersion;
+};
+
+enum AuthParamNames {
+    GRANT_TYPE = "grantType",
+    TWO_FA = "twoFa",
+    AUTH_SESSION_ID = "authSessionId",
+    DEVICE_ID = "deviceId",
+    TWO_FA_TYPE = "twoFaType",
+    TOKEN_SERIAL_NO = "tokenSerialNo",
+    TOKEN_RESPONSE = "tokenResponse",
+    API_VERSION = "apiVersion"
+};
+
+enum OtpTypes {
+    TWO_FA_OTP = "twoFaOtp",
+    SOFT_TOKEN_OTP = "softTokenOtp",
+    ALWAYS_TWO_FA_OTP = "alwaysTwoFaOtp"
+};
+
+enum ActionStatus {
+    SUCCESS,
+    ERROR
+};
+
+type MobileAppConfig record {|
+    string appUrl;
+    string tokenUrl;
+    string clientId;
+    string clientSecret;
 |};
