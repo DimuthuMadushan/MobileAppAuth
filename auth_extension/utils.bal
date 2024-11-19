@@ -21,7 +21,7 @@ isolated function extractGrantType(RequestParams[] params) returns GrantType|err
     string? tokenResponse = ();
     string? apiVersion = ();
     foreach RequestParams param in params {
-        string[]? value = param.values;
+        string[]? value = param.value;
         if value is () {
             continue;
         }

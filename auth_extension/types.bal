@@ -48,7 +48,7 @@ public type Request record {
 
 public type RequestParams record {
     string name?;
-    string[] values?;
+    string[] value?;
 };
 
 public type AccessTokenClaims record {
