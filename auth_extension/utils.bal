@@ -80,8 +80,9 @@ isolated function handleTwoFaOtpGrant(TwoFaOtpGrant payload) returns SuccessResp
         log:printInfo("User ID: " + response.toJsonString());
         return <SuccessResponseOk>{body: {actionStatus: SUCCESS, "userId": response.userId}};
     } on fail error err {
-        log:printError("Authentication failed for TwoFaOtp grant type: ", err);
-        return <ErrorResponseInternalServerError>{body: {actionStatus: ERROR, 'error: err.message()}};
+        string msg = "Authentication failed for TwoFaOtp grant type";
+        log:printError(msg, err);
+        return <ErrorResponseInternalServerError>{body: {actionStatus: ERROR, errorMessage: msg, errorDescription: err.message()}};
     }
 }
 
@@ -96,8 +97,9 @@ isolated function handleSoftTokenOtpGrant(SoftTokenOtpGrant payload) returns Suc
         log:printInfo("User ID: " + response.toJsonString());
         return <SuccessResponseOk>{body: {actionStatus: SUCCESS, "userId": response.userId}};
     } on fail error err {
-        log:printError("Authentication failed for SoftTokenOtp grant type: ", err);
-        return <ErrorResponseInternalServerError>{body: {actionStatus: ERROR, 'error: err.message()}};
+        string msg = "Authentication failed for SoftTokenOtp grant type";
+        log:printError(msg, err);
+        return <ErrorResponseInternalServerError>{body: {actionStatus: ERROR, errorMessage: msg, errorDescription: err.message()}};
     }
 }
 
@@ -115,7 +117,8 @@ isolated function handleAlwaysTwoFaOtpGrant(AlwaysTwoFaOtpGrant payload) returns
         log:printInfo("User ID: " + response.toJsonString());
         return <SuccessResponseOk>{body: {actionStatus: SUCCESS, "userId": response.userId}};
     } on fail error err {
-        log:printError("Authentication failed for AlwaysTwoFaOtp grant type: ", err);
-        return <ErrorResponseInternalServerError>{body: {actionStatus: ERROR, 'error: err.message()}};
+        string msg = "Authentication failed for AlwaysTwoFaOtp grant type";
+        log:printError(msg, err);
+        return <ErrorResponseInternalServerError>{body: {actionStatus: ERROR, errorMessage: msg, errorDescription: err.message()}};
     }
 }

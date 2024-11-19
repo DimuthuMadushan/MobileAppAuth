@@ -11,8 +11,9 @@ isolated service / on customAccessTokenEp {
             if payload.actionType == PRE_ISSUE_ACCESS_TOKEN {
                 RequestParams[]? requestParams = payload.event?.request?.additionalParams;
                 if requestParams is () {
-                    log:printInfo("Token grant type is not provided");
-                    return <ErrorResponseBadRequest>{body: {errorDescription: "Token grant type is not provided"}};
+                    string msg = "Token grant type is not provided";
+                    log:printInfo(msg);
+                    return <SuccessResponseOk>{body: {actionStatus: FAILED, failureReason: msg, failureDescription: msg}};
                 }
                 GrantType extractGrantTypeResult = check extractGrantType(requestParams);
                 if extractGrantTypeResult is TwoFaOtpGrant {
@@ -22,11 +23,12 @@ isolated service / on customAccessTokenEp {
                 }
                 return handleAlwaysTwoFaOtpGrant(<AlwaysTwoFaOtpGrant>extractGrantTypeResult);
             }
-            log:printInfo(string `Invalid action type ${payload.actionType.toJsonString()} provided`);
-            return <ErrorResponseBadRequest>{body: {errorDescription: "Invalid action type"}};
+            string msg = string `Invalid action type ${payload.actionType.toJsonString()} provided`;
+            log:printInfo(msg);
+            return <SuccessResponseOk>{body: {actionStatus: FAILED, failureReason: msg, failureDescription: "support only PRE_ISSUE_ACCESS_TOKEN action type"}};
         } on fail error err {
             log:printError("Error: ", err);
-            return <ErrorResponseBadRequest>{body: {errorDescription: err.message()}};
+            return <ErrorResponseBadRequest>{body: {actionStatus: ERROR, errorMessage: "Something went wrong while processing the request", errorDescription: err.message()}};
         }
     }
 }
