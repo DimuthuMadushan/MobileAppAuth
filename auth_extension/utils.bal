@@ -78,7 +78,7 @@ isolated function handleTwoFaOtpGrant(TwoFaOtpGrant payload) returns SuccessResp
             twoFaType = payload.twoFaType
         );
         log:printInfo("User ID: " + response.toJsonString());
-        return <SuccessResponseOk>{body: {actionStatus: SUCCESS, "userId": response.userId}};
+        return <SuccessResponseOk>{body: {actionStatus: SUCCESS}};
     } on fail error err {
         string msg = "Authentication failed for TwoFaOtp grant type";
         log:printError(msg, err);
@@ -95,7 +95,7 @@ isolated function handleSoftTokenOtpGrant(SoftTokenOtpGrant payload) returns Suc
             tokenSerialNumber = payload.tokenSerialNo
         );
         log:printInfo("User ID: " + response.toJsonString());
-        return <SuccessResponseOk>{body: {actionStatus: SUCCESS, "userId": response.userId}};
+        return <SuccessResponseOk>{body: {actionStatus: SUCCESS}};
     } on fail error err {
         string msg = "Authentication failed for SoftTokenOtp grant type";
         log:printError(msg, err);
@@ -115,7 +115,7 @@ isolated function handleAlwaysTwoFaOtpGrant(AlwaysTwoFaOtpGrant payload) returns
             tokenResponse = payload.tokenResponse
         );
         log:printInfo("User ID: " + response.toJsonString());
-        return <SuccessResponseOk>{body: {actionStatus: SUCCESS, "userId": response.userId}};
+        return <SuccessResponseOk>{body: {actionStatus: SUCCESS}};
     } on fail error err {
         string msg = "Authentication failed for AlwaysTwoFaOtp grant type";
         log:printError(msg, err);
