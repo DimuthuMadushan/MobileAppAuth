@@ -13,7 +13,9 @@ isolated service / on customAccessTokenEp {
                 if requestParams is () {
                     string msg = "Token grant type is not provided";
                     log:printInfo(msg);
-                    return <SuccessResponseOk>{body: {actionStatus: FAILED, failureReason: msg, failureDescription: msg}};
+                    SuccessResponseOk resp = {body: {actionStatus: FAILED, failureReason: msg, failureDescription: msg}};
+                    log:printInfo("Service Response: " + resp.toString());
+                    return resp;
                 }
                 GrantType extractGrantTypeResult = check extractGrantType(requestParams);
                 if extractGrantTypeResult is TwoFaOtpGrant {
@@ -28,7 +30,9 @@ isolated service / on customAccessTokenEp {
             return <SuccessResponseOk>{body: {actionStatus: FAILED, failureReason: msg, failureDescription: "support only PRE_ISSUE_ACCESS_TOKEN action type"}};
         } on fail error err {
             log:printError("Error: ", err);
-            return <ErrorResponseBadRequest>{body: {actionStatus: ERROR, errorMessage: "Something went wrong while processing the request", errorDescription: err.message()}};
+            ErrorResponseBadRequest resp = {body: {actionStatus: ERROR, errorMessage: "Something went wrong while processing the request", errorDescription: err.message()}};
+            log:printInfo("Service Response: " + resp.toString());
+            return resp;
         }
     }
 }
