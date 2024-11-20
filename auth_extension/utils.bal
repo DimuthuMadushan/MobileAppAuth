@@ -78,7 +78,7 @@ isolated function handleTwoFaOtpGrant(TwoFaOtpGrant payload) returns SuccessResp
             twoFaType = payload.twoFaType
         );
         log:printInfo("User ID: " + response.toJsonString());
-        SuccessResponseOk resp = {body: {actionStatus: SUCCESS}};
+        SuccessResponseOk resp = {body: {actionStatus: SUCCESS, operations: []}};
         log:printInfo("Service Response: " + resp.toString());
         return resp;
     } on fail error err {
@@ -99,7 +99,7 @@ isolated function handleSoftTokenOtpGrant(SoftTokenOtpGrant payload) returns Suc
             tokenSerialNumber = payload.tokenSerialNo
         );
         log:printInfo("User ID: " + response.toJsonString());
-        SuccessResponseOk resp = {body: {actionStatus: SUCCESS}};
+        SuccessResponseOk resp = {body: {actionStatus: SUCCESS, operations: []}};
         log:printInfo("Service Response: " + resp.toString());
         return resp;
     } on fail error err {
@@ -123,7 +123,7 @@ isolated function handleAlwaysTwoFaOtpGrant(AlwaysTwoFaOtpGrant payload) returns
             tokenResponse = payload.tokenResponse
         );
         log:printInfo("User ID: " + response.toJsonString());
-        SuccessResponseOk resp = {body: {actionStatus: SUCCESS}};
+        SuccessResponseOk resp = {body: {actionStatus: SUCCESS, operations: []}};
         log:printInfo("Service Response: " + resp.toString());
         return resp;
     } on fail error err {

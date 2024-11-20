@@ -7,8 +7,8 @@ public type SuccessResponseOk record {|
 
 # Defines the success response.
 public type SuccessResponse record {
-    SUCCESS actionStatus?;
-    Operations[] operations?;
+    SUCCESS actionStatus;
+    Operations[] operations;
 };
 
 public type ErrorResponseBadRequest record {|
@@ -122,11 +122,11 @@ public type AccessToken record {
 
 public type FailedResponse record {
     # Indicates the outcome of the request. For a failed operation, this should be set to FAILED.
-    FAILED actionStatus?;
+    FAILED actionStatus;
     # Provides the reason for failing to issue an access token.
-    string failureReason?;
+    string failureReason;
     # Offers a detailed explanation of the failure.
-    string failureDescription?;
+    string failureDescription;
 };
 
 # Defines the set of operations that your external service is permitted to perform on the access token's claims and scopes.
