@@ -1,9 +1,17 @@
+import ballerina/auth;
 import ballerina/http;
 import ballerina/log;
 
-listener http:Listener customAccessTokenEp = new (9091);
+auth:FileUserStoreConfig fileUserStoreConfig = {};
 
-isolated service / on customAccessTokenEp {
+@http:ServiceConfig {
+    auth:[
+        {
+            fileUserStoreConfig: fileUserStoreConfig
+        }
+    ]
+}
+isolated service / on new http:Listener(9091) {
     isolated resource function post .(@http:Payload json jsonPayload) returns SuccessResponseOk|ErrorResponseBadRequest|ErrorResponseInternalServerError {
         do {
             log:printInfo("Payload: " + jsonPayload.toJsonString());

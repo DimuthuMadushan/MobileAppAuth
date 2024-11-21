@@ -18,6 +18,9 @@ dependencies = [
 	{org = "ballerina", name = "lang.string"},
 	{org = "ballerina", name = "log"}
 ]
+modules = [
+	{org = "ballerina", packageName = "auth", moduleName = "auth"}
+]
 
 [[package]]
 org = "ballerina"
@@ -288,6 +291,7 @@ org = "dimuthu"
 name = "auth_extension"
 version = "0.1.0"
 dependencies = [
+	{org = "ballerina", name = "auth"},
 	{org = "ballerina", name = "http"},
 	{org = "ballerina", name = "log"},
 	{org = "ballerinai", name = "observe"}
