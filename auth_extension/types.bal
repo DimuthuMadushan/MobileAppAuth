@@ -158,7 +158,12 @@ public type RequestHeaders record {
 public type Operations record {
     string op?;
     string path?;
-    string value?;
+    OperationValue value?;
+};
+
+public type OperationValue record {
+    string name;
+    string value;
 };
 
 public type RequestBody record {
